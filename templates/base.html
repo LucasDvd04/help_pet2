@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style_base.css' %}">
+    {% block extrahead %}
+    {% endblock %}
+</head>
+<body>
+    <div class="container-page">
+        <div class="container-head">
+            <img src="{% static 'img/logo2025.png' %}" alt="logo escrito Help Pet" class="logo_menu">
+            <ul class="menu-options">
+                <li><a href="{% url 'home' %}">Inicio</a></li>
+                <li><a href="{% url 'animal_list' %}">Desparecidos</a></li>
+                <li><a href="#">Adoção</a></li>
+                <li><a href="#">Abandonados</a></li>
+                {% if user.is_authenticated %}
+                    <li class="auth-button-red"><a href="#">Logout</a></li>
+                {% else %}
+                    <li class="auth-button-blue" ><a href="#">Login/Cadastro</a></li>
+                {% endif %}
+            </ul>
+        </div> 
+        <div class="container-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="container-footer">
+        <div class="footer-content">
+            <ul class="list-content">
+                <span class="footer-title">HelpPet</span>
+                <li><a href="#">Nossa Missão</a></li>
+                <li><a href="#">Historias de Sucesso</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+            <ul class="list-content">
+                <span class="footer-title">Como Ajudar</span>
+                <li><a href="#">Quero Adotar</a></li>
+                <li><a href="#">Cadastrar Animal</a></li>
+                <li><a href="#">Seja Voluntario</a></li>
+            </ul>
+            <ul class="list-content">
+                <span class="footer-title">Siga-nos</span>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Facebook</a></li>
+            </ul>
+        </div>
+            <p>2025 HelpPet - Reunindo Patas e Corações</p>
+        </div>
+    </div>
+</body>
+</html>

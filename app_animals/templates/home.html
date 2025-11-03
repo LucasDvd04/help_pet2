@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Help Pet - Home {% endblock %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/style_home.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="animated-options">
+        <div class="hero-content">
+            <!-- <img src="{% static 'img/dog_cat.jpg' %}" alt="" class="img-home"> -->
+            <h1 class="hero-title">
+                    Reunindo Patas e Corações
+                </h1>
+                <div class="hero-ctas">
+                    <a href="{% url  'animal_cad'%}" class="cta-button cta-blue">Perdi Meu Pet</a>
+                    <a href="#" class="cta-button cta-orange">Quero Adotar</a>
+                    <a href="#" class="cta-button cta-green">Encontrei um Animal</a>
+                </div>
+        </div>
+    </div>
+
+{% endblock %}

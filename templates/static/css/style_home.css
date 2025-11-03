@@ -1,0 +1,67 @@
+.animated-options{
+    width: 100%;
+    height: 85vh;
+    background-image: url('../img/dog_cat.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 10% 80px 10%;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: 3.2em; 
+    color: #f3f5f7;
+    line-height: 1.1; 
+    margin-bottom: 40px;
+    font-weight: 800; /* Mais impacto */
+}
+
+/* -------------------- */
+/* Botões (CTAs) na Seção Hero */
+/* -------------------- */
+.hero-ctas {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap; 
+}
+
+.cta-button {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 15px 25px;
+    border-radius: 30px; 
+    transition: opacity 0.3s, transform 0.3s;
+    text-align: center;
+    min-width: 150px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para destaque */
+}
+
+/* Cores específicas dos botões (Coordenadas com a imagem de fundo) */
+.cta-blue {
+    background-color: #55a0d3;    
+}
+
+.cta-orange {
+    background-color: #fa9745; 
+}
+
+.cta-green {
+    background-color: #90c776; 
+}
+
+.cta-button:hover {
+    opacity: 0.95;
+    transform: translateY(-2px); 
+}

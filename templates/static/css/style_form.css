@@ -1,0 +1,144 @@
+/* -------------------- */
+/* CONTÊINER PRINCIPAL: .cad-screen */
+/* -------------------- */
+.cad-screen {
+    /* Mantenho suas propriedades de estilo */
+    background-color: rgb(147, 157, 245); /* Azul claro */
+    width: 80%;
+    border-radius: 20px;
+    margin: 4vh auto; /* Centraliza na tela */
+    
+    /* PROPRIEDADES FLEXBOX PRINCIPAIS */
+    display: flex; 
+    /* Distribui a capa e o formulário no centro do contêiner */
+    justify-content: space-between; 
+    /* Alinha verticalmente os itens no centro */
+    align-items: stretch; /* Garante que os filhos estiquem na altura, se necessário */
+    flex-wrap: wrap; 
+    
+    /* Ajustando flex: 1; aqui não faz sentido, pois o pai precisa de uma largura fixa */
+    padding: 0; /* Remove padding interno desnecessário */
+    overflow: hidden; /* Garante que o border-radius funcione nas imagens */
+}
+
+/* -------------------- */
+/* FILHO 1: IMAGEM/CAPA - .cover-cad */
+/* -------------------- */
+.cover-cad {
+    /* Define que a Capa ocupará 50% da largura, mas crescerá e encolherá */
+    flex: 1 1 50%; /* flex-grow: 1, flex-shrink: 1, flex-basis: 50% */
+    min-height: 400px; /* Garante altura mínima para ver a imagem */
+
+    /* Suas propriedades de background */
+    background-image: url('../img/animal_form.jpg');
+    background-size: cover;
+    background-position: center; /* Garante que a imagem principal fique visível */
+    background-repeat: no-repeat;
+    
+    /* Estilo do Título dentro da Capa */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cover-cad h1 {
+    color: white;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo semi-transparente */
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.8em;
+}
+
+/* -------------------- */
+/* FILHO 2: FORMULÁRIO */
+/* -------------------- */
+form {
+    /* Define que o Formulário ocupará os outros 50% */
+    flex: 1 1 50%; 
+    padding: 30px;
+    background-color: white; /* Dá um fundo contrastante */
+    box-sizing: border-box;
+    color: rgb(138, 150, 255);
+    font-weight: bold;
+}
+
+.form-title{
+    display: flex;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.726);
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* -------------------- */
+/* FORMULÁRIO INTERNO: Campos e Tabela */
+/* -------------------- */
+.form-class {
+    width: 100%;
+    padding: 40px 20px;
+}
+
+.form-class tbody tr{
+    /* Mantenho o seu CSS, que organiza os campos em coluna */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 15px; /* Adiciona espaçamento entre as linhas */
+
+}
+
+.form-class th, .form-class td {
+    display: block;
+    width: 80%;
+    text-align: left;
+}
+
+/* Estilo para inputs e botões para consistência */
+form input, form select, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.button{
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+}
+
+.b_green{
+    background-color: rgb(40, 167, 69);
+}
+
+.b_red{
+    background-color: rgb(220, 53, 69);
+}
+
+/* -------------------- */
+/* Responsividade: Empilhamento em Telas Pequenas */
+/* -------------------- */
+@media (max-width: 768px) {
+    .cad-screen {
+        /* Permite que o contêiner principal ocupe mais espaço na tela do celular */
+        width: 95%; 
+    }
+    
+    .cover-cad, form {
+        /* Faz com que ambos ocupem 100% da largura, empilhando-os */
+        flex-basis: 100%; 
+    }
+
+    .cover-cad {
+        /* Diminui a altura da capa no celular */
+        min-height: 200px; 
+    }
+}

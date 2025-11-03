@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
+    min-height: 100vh;
+    width: 100%;
+}
+
+a{
+    text-decoration: none;
+}
+.container-head{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 4vh;
+    padding-top: 2vh;
+    width: 100%;
+}
+
+.logo_menu{
+    max-width: 40vh;
+    max-height: 20vh;
+}
+
+.menu-options{
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.menu-options li a{
+    color: rgb(120, 167, 230);
+    text-decoration: none;
+    font-size: 18px;
+}
+.auth-button-blue a{
+    background-color: rgb(120, 167, 230);
+    color:white !important;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.auth-button-red a{
+    background-color: red;
+    color:white !important;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.container-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(221, 218, 218);
+}
+
+
+.container-footer{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color: rgb(51, 51, 51);
+    width: 100%;
+    padding: 20px 0;
+}
+
+.container-footer p{
+    text-align: center;
+    padding: 10px;
+}
+
+.footer-content{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0px 2px;
+}
+
+.footer-title{
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(120, 167, 230);
+    padding: 15px 0px;
+}
+
+.list-content{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-content li a{
+    text-decoration: none;
+    color: white;
+}
