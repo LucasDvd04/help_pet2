@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Help Pet - {{object.name}} {% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container-xxl col-md-10 mb-4">
+
+    <a href="{% url 'animal_list' %}" class="btn btn-light"><i class="bi bi-arrow-left-circle"></i> Voltar a Lista de
+        Desaparecidos</a>
+    <div class="row">
+        <div class="col-sm">
+            <div class="card mb-4" style="width: 100%;">
+                <!-- Button trigger modal -->
+                <img data-bs-toggle="modal" data-bs-target="#imageModal" src="{{ object.first_picture }}"
+                    alt="{{ object.name }}" class="img-fluid img-thumbnail" ,
+                    style="width:100%; height:400px; object-fit:cover; object-position:center top; border-radius:8px; border: none;">
+
+                <div class="card-body">
+                    <h3 class="card-title">{{object.name}} - {{object.age}} Ano(s)</h3>
+                    <div class="table-overflow" style="height: 120px; overflow-y: auto;">
+                        <p class="card-text">Sexo: {{ object.gender }}</p>
+                        <p class="card-text">Status: {{ object.status }}</p>
+                        <p class="card-text overflow-y: auto;">{{ object.description }}</p>
+                    </div>
+                    <p class="card-text"><small class="text-body-secondary">Atualizado em:
+                            {{object.dt_update}}</small></p>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm">
+            <h5 class="card-title">Comentarios</h5>
+            <div class="card-body">
+                <div class="table-overflow" style="height: 500px; overflow-y: auto ; overflow-x: hidden;">
+                    <table class="table">
+                        {% for comment in comments %}
+                        <div class="row bg-dark-subtle text-dark-emphasis rounded p-2 mb-2">
+                            <div class="col-md-2 ">
+                                <p>{{ comment.user }}</p>
+                            </div>
+
+                            <div class="col">
+                                <div class="row">
+                                    <p>{{ comment.content }}</p>
+                                </div>
+
+                                <div class="row row-cols-2">
+                                    <div class="col col-md-auto col-sm-6 ">
+                                        {% if comment.dt_create == comment.dt_update %}
+                                        <small class="text-body-secondary">{{ comment.dt_update|timesince }}</small>
+                                        {% else %}
+                                        <small class="text-body-secondary">
+                                            edit.: {{ comment.dt_update|timesince }}
+                                        </small>
+                                        {% endif %}
+                                    </div>
+
+                                    {% if user.id == comment.user.id %}
+                                    <div class="col">
+                                        <small class="text-body-secondary">
+                                            <div class="btn-group">
+                                                <button type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                                    style="border: none; background: none; padding: 0; margin: 0;">...</button>
+                                                <ul class="dropdown-menu">
+                                                    <!-- BOTÃO EDITAR -->
+                                                    <li>
+                                                        <button class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#editModal" data-id="{{ comment.id }}"
+                                                            data-user="{{ comment.user }}"
+                                                            data-content="{{ comment.content|escapejs }}">
+                                                            Editar
+                                                        </button>
+                                                    </li>
+
+                                                    <!-- BOTÃO EXCLUIR -->
+                                                    <li>
+                                                        <button class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteModal" data-id="{{ comment.id }}"
+                                                            data-user="{{ comment.user }}"
+                                                            data-content="{{ comment.content|truncatechars:50|escapejs }}">
+                                                            Excluir
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </small>
+                                    </div>
+                                    {% endif %}
+
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+
+
+            {% if user.is_authenticated %}
+            <form action="#" method="post" class="mt-2">
+                {% csrf_token %}
+                <div class="input-group">
+                    <textarea class="form-control" aria-label="With textarea" id="comment" name="comment"
+                        required="True"></textarea>
+                    <button type="submit" class="input-group-text btn btn-info"><i
+                            class="bi bi-arrow-right-square text-light"></i></button>
+                </div>
+            </form>
+            {% else %}
+            <form action="{% url 'user_log' %}" class="mt-2">
+                <div class="input-group">
+                    <textarea class="form-control text-danger" aria-label="With textarea" id="comment" name="comment"
+                        disabled="True">Acesse sua conta para enviar um comentario</textarea>
+                    <button class="input-group-text btn btn-info"><i
+                            class="bi bi-person-fill-lock text-light"></i></button>
+                </div>
+            </form>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-below-xxl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="imageModalLabel">{{object.name}}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div id="carouselExample" class="carousel slide ">
+                            <div class="carousel-inner">
+                                {% for obj in object.picture_animal.all %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ obj.picture.url }}" alt="{{ object.name }}"
+                                        class="img-fluid img-thumbnail" ,
+                                        style="width:100%; height:500px; object-fit:fill; border-radius:8px;">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-below-xxl">
+            <div class="modal-content">
+                <form action="#" method="post" class="mt-2">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editModalLabel">Editar</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <!-- ID oculto para saber qual comentário será editado -->
+                        <input type="hidden" name="comment_id" id="edit-comment-id">
+
+                        <div class="input-group">
+                            <textarea class="form-control" aria-label="With textarea" id="edit-comment-content"
+                                name="comment_edit" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">
+                            <i class="bi bi-floppy text-light"></i> Salvar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="{% url 'comment_delete' %}">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Excluir Comentário</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <input type="hidden" name="comment_id" id="delete-comment-id">
+
+                        <p>Deseja realmente excluir o comentário de
+                            <strong id="delete-comment-user"></strong>?
+                        </p>
+                        <blockquote class="blockquote text-muted mt-2">
+                            <small id="delete-comment-content"></small>
+                        </blockquote>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+<script>
+    const myModal = document.getElementById('myModal')
+    const myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus()
+    })
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editModal = document.getElementById('editModal');
+
+        editModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget; // botão que abriu o modal
+            const commentId = button.getAttribute('data-id');
+            const commentContent = button.getAttribute('data-content');
+
+            // preenche os campos dentro do modal
+            editModal.querySelector('#edit-comment-id').value = commentId;
+            editModal.querySelector('#edit-comment-content').value = commentContent;
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteModal = document.getElementById('deleteModal');
+
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget; // botão que abriu o modal
+            const id = button.getAttribute('data-id');
+            const user = button.getAttribute('data-user');
+            const content = button.getAttribute('data-content');
+
+            // Preenche os campos no modal
+            deleteModal.querySelector('#delete-comment-id').value = id;
+            deleteModal.querySelector('#delete-comment-user').textContent = user;
+            deleteModal.querySelector('#delete-comment-content').textContent = content;
+        });
+    });
+</script>
+
+
+
+
+
+{% endblock %}

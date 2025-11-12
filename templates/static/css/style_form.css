@@ -28,7 +28,6 @@
     /* Define que a Capa ocupará 50% da largura, mas crescerá e encolherá */
     flex: 1 1 50%; /* flex-grow: 1, flex-shrink: 1, flex-basis: 50% */
     min-height: 400px; /* Garante altura mínima para ver a imagem */
-
     /* Suas propriedades de background */
     background-image: url('../img/animal_form.jpg');
     background-size: cover;

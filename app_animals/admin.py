@@ -1,28 +1,25 @@
 from django.contrib import admin
-from .models import Species, Animal, GenderChoices, Status, Location
+from .models import Animal,Location, PictureGalery,Comment
 
-class SpeciesAdmin(admin.ModelAdmin):
-    list_display = ('common_name',)
-    search_fields = ('common_name',)
-
-class GenderAdmin(admin.ModelAdmin):
-    list_display = ('gender',)
-
-class StatusAdmin(admin.ModelAdmin):
-    list_display = ('status',)
 
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ('city', 'state', 'uf')
+    list_display = ('city', 'state', 'uf',)
     search_fields = ('city', 'state', 'uf')
 
 class AnimalAdmin(admin.ModelAdmin):
-    list_display = ('name', 'age', 'gender', 'specie')
+    list_display = ('name', 'age', 'gender', 'specie','dt_update',)
     list_filter = ('specie', 'gender')
     search_fields = ('name', 'specie__common_name')
 
+class PictureAdmin(admin.ModelAdmin):
+    list_display = ('picture','dt_insert',)
 
-admin.site.register(Species, SpeciesAdmin),
-admin.site.register(GenderChoices, GenderAdmin),
-admin.site.register(Status, StatusAdmin),
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('content', 'dt_create', 'dt_update', 'animal',)
+    search_fields = ('content', 'animal__name',)
+
+
 admin.site.register(Location, LocationAdmin),
 admin.site.register(Animal, AnimalAdmin),
+admin.site.register(PictureGalery, PictureAdmin),
+admin.site.register(Comment, CommentAdmin),

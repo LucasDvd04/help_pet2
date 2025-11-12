@@ -23,6 +23,7 @@ a{
 }
 
 .logo_menu{
+    width: calc(15% - 10px);
     max-width: 40vh;
     max-height: 20vh;
 }
@@ -55,12 +56,12 @@ a{
     border-radius: 5px;
 }
 
-.container-content{
+/* .container-content{
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: rgb(221, 218, 218);
-}
+} */
 
 
 .container-footer{

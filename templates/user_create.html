@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Help Pet - {% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl col-md-4 mb-4 ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title md-6 mb-4 text-center"><i class="bi bi-person-circle"></i> Cadastre-se </h2>
+                    <form class="form-group" method="post">
+                        {% csrf_token %}
+                        <div class="col mb-3">
+                            <label class="form-label" for="username">Usuário: </label>
+                            <input type="text" class="form-control" name="username" id="id_username" placeholder="Nome de Usuário"></input>
+                            {{ form.username.errors}}
+                        </div>
+                        <div class="col mb-3">
+                            
+                            <label class="form-label" for="username">Senha: </label>
+                            <input type="password" class="form-control" name="password1" id="id_password1" placeholder="************"></input>
+                            {{ form.password1.errors}}
+                        </div>
+                        <div class="col mb-3">
+                            
+                            <label class="form-label" for="username">Confirmação de Senha: </label>
+                            <input type="password" class="form-control" name="password2" id="id_password2" placeholder="************"></input>
+                            {{ form.password2.errors}}
+                        </div>
+
+                        <div class="row p-4">
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

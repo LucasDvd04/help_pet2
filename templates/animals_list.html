@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Help Pet - Desaparecidos {% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/style_animallist.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+{% endblock %}
+
+{% block content %}
+<div class="container-animal-list">
+    <div class="filter-content">
+        <form action="{% url 'animal_list' %}" method="get">
+            <select id="states" name="location">
+                <option value="">Todos os Estados</option>
+                {% for location in locations %}
+                <option value="{{location.id}}">{{ location.city }}-{{ location.uf}}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Filtrar</button>
+        </form>
+    </div>
+    <div class="container-list">
+
+        <ul>
+            {% for an in animais %}
+            <li>
+                <a href="{%url 'animal_detail' an.id %}">
+                    {% if an.first_picture %}
+                    <img src="{{ an.first_picture }}" alt="{{ an.name }}" width="200" >
+                    {% else %}
+                    <p>Sem foto disponível</p>
+                    {% endif %}
+                    <div class="datas">
+                        <h2>{{ an.name }}</h2>
+                        <div class="icon-react">
+                            <a href="#"><i class="fas fa-heart"></i></a>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
