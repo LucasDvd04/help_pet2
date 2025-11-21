@@ -1,0 +1,44 @@
+{% extends "base_h.html" %}
+{% load static %}
+{% block title %}Help Pet - {% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid col-md-4 mt-5">
+    <div class="col-md-12 ">
+        <div class="card">
+            <div class="card-body">
+
+                <h2 class="card-title p-5 text-center"><i class="bi bi-person-circle"></i> Login </h2>
+                <form class="form-group" method="post">
+                    {% csrf_token %}
+                    <div class="col mb-3">
+                        <label class="form-label" for="username">Usuário: </label>
+                        <input type="text" class="form-control" name="username" id="id_username"
+                            placeholder="Nome de Usuário"></input>
+                        {{form.username.erros}}
+                    </div>
+                    <div class="col mb-3">
+                        <label class="form-label" for="username">Senha: </label>
+                        <input type="password" class="form-control" name="password" id="id_password"
+                            placeholder="************"></input>
+                        {{form.password.erros}}
+
+                    </div>
+
+                    <div class="row p-4">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+                <div class="text-center">
+                    <small class="text-body-secondary ">Não tem conta? <a href="{% url 'user_cad' %}">Crie aqui!</a></small>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

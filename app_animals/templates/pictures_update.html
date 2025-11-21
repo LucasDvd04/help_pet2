@@ -1,0 +1,33 @@
+{% extends "base_h.html" %}
+{% load static %}
+{% block title %}Help Pet - Cadastro de Pet {% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/style_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cad-screen table-overflow" style="overflow-y: auto;">
+    <div class="cover-cad">
+        <!-- <h1>Cadastre o pet: um passo para um novo lar.</h1> -->
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="form-cad ">
+        {% csrf_token %}
+        <table class="form-class">
+            <h2 class="form-title">Alterar Cadastro</h2>
+                {{ form.as_table }}
+
+        </table>
+
+        <div class="buttons">
+            <button type="submit" class="button b_green">Cadastrar Pet</button>
+            <!-- <button type="cancel" class="button b_red" action="{% url 'home' %}">Cancelar</button> -->
+
+            <a href="{% url 'home' %}" class="btn btn-danger">Cancelar</a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

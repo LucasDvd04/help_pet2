@@ -1,0 +1,21 @@
+{% extends "base_h.html" %}
+{% load static %}
+{% block title %}Help Pet - {{object.name}} {% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid p-2 table-overflow " style="overflow-y: auto; height: 100vh;">
+
+    <a href="{% url 'abandoned_list' %}" class="btn btn-light"><i class="bi bi-arrow-left-circle"></i> Voltar a Lista de
+        Abandonados</a>
+    
+        {% include 'components/_detail.html' %}
+
+</div>
+
+
+
+{% endblock %}

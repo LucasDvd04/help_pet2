@@ -28,7 +28,13 @@ class Animal(models.Model):
         ('O','Other'),
     ]
 
+    AGE_CHOICES = [
+        ('mes','Mes(es)'),
+        ('ano','Ano(s)'),
+    ]
+
     name = models.CharField(max_length=100, null=True, blank=True)
+    age_type = models.CharField(max_length=20,choices=AGE_CHOICES, default='mes', null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='M')
     specie = models.CharField(max_length=1, choices=ESPECIE_CHOICES, default='D')
@@ -37,6 +43,7 @@ class Animal(models.Model):
     description = models.TextField(null=True, blank=True)
     dt_create = models.DateTimeField(auto_now_add=True)
     dt_update = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True, blank=True)
     
     def __str__(self):
         return self.name
@@ -45,6 +52,19 @@ class Animal(models.Model):
         """Retorna a primeira foto do animal, se existir."""
         first = self.picture_animal.first()
         return first.picture.url if first else None
+    
+    def get_age_display(self):
+        agetype = dict(self.AGE_CHOICES).get(self.age_type, '')
+        return f"{self.age} {agetype}"
+    
+    def get_gender_display(self):
+        gendertype = dict(self.GENDER_CHOICES).get(self.gender, '')
+        return f"{gendertype}"
+    
+    def get_status_display(self):
+        statustype = dict(self.STATUS_CHOICES).get(self.status, '')
+        return f"{statustype}"
+    
     
 class PictureGalery(models.Model):
     picture = models.ImageField(upload_to='animal_pictures/')

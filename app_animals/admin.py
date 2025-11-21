@@ -7,16 +7,16 @@ class LocationAdmin(admin.ModelAdmin):
     search_fields = ('city', 'state', 'uf')
 
 class AnimalAdmin(admin.ModelAdmin):
-    list_display = ('name', 'age', 'gender', 'specie','dt_update',)
+    list_display = ('name', 'age', 'gender', 'specie','dt_update','user',)
     list_filter = ('specie', 'gender')
-    search_fields = ('name', 'specie__common_name')
+    search_fields = ('name', 'specie__common_name','user__username')
 
 class PictureAdmin(admin.ModelAdmin):
     list_display = ('picture','dt_insert',)
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('content', 'dt_create', 'dt_update', 'animal',)
-    search_fields = ('content', 'animal__name',)
+    list_display = ('content', 'dt_create', 'dt_update', 'animal','user',)
+    search_fields = ('content', 'animal__name','user__username')
 
 
 admin.site.register(Location, LocationAdmin),

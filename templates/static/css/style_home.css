@@ -1,15 +1,15 @@
 .animated-options{
     width: 100%;
-    height: 85vh;
-    background-image: url('../img/dog_cat.jpg');
-    background-size: cover;
+    height: 100%;
+    /* background-image: url('../img/dog_cat.jpg'); */
+    background-size: fill;
     background-position: center;
     background-repeat: no-repeat;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 80px 10% 80px 10%;
+    /* padding: 80px 10% 80px 10%; */
 }
 
 .hero-content {
@@ -20,7 +20,7 @@
 
 .hero-title {
     font-size: 3.2em; 
-    color: #f3f5f7;
+    color: #a4a4a5;
     line-height: 1.1; 
     margin-bottom: 40px;
     font-weight: 800; /* Mais impacto */

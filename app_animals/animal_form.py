@@ -4,10 +4,11 @@ from .models import Animal, PictureGalery
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = '__all__'
+        fields = ('name','age_type','age','gender','specie','status','description','location')
 
         labels = {
             'name':'Nome',
+            'age_type':'Meses ou Anos?',
             'age': 'Idade',
             'gender': 'Genero',
             'specie': 'Especie',

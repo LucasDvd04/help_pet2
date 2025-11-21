@@ -1,0 +1,111 @@
+{% extends "base_h.html" %}
+{% load static %}
+{% block title %}Help Pet - Desaparecidos {% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/style_animallist.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid table-overflow" style="overflow-y: auto;">
+    <!-- <div class="row">
+        <div class="col filter-content">
+        <form action="{% url 'lost_list' %}" method="get">
+            <select id="states" name="location">
+                <option value="">Todos os Estados</option>
+                {% for location in locations %}
+                <option value="{{location.id}}">{{ location.city }}-{{ location.uf}}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Filtrar</button>
+        </form>
+    </div> -->
+    <!-- </div> -->
+
+    <div class="container-fluid mt-4 mb-4">
+        <div class="row row-cols-1 justify-content-center">
+            {% for an in animais %}
+            <div class="col mb-4 col-lg-8">
+                <h4 class="card-title">{{an.name}} - {{an.get_age_display}}</h4>
+                {% if an.status == "desaparecido" %}
+                <a href="{%url 'lost_detail' an.id %}">
+                    {% elif an.status == "adocao" %}
+                    <a href="{%url 'adoct_detail' an.id %}">
+                        {% elif an.status == "abandonado" %}
+                        <a href="{%url 'abandoned_detail' an.id %}">
+                            {% endif %}
+
+                 {% if an.first_picture %}
+                            <img src="{{ an.first_picture }}" alt="{{ an.name }}" class="img-fluid" ,
+                                style="width:100%; height:400px; object-fit:cover; object-position:center top; border-radius:8px; border: none;"></img>
+                            </a>
+                        {% else %}
+                        <div class="card bg-dark-subtle text-center"
+                            style="width: 100%; height: 400px; object-position:center top; border-radius:8px; border: none;">
+                            <div class="card-body">
+                                <h5 class="text-body-secondary p-5">Não foi possivel carregar a Imagem</h5>
+                            </div>
+                        </div>
+                        </a>
+                        {% endif %}
+
+                <div class="comentario mb-3">
+
+    <span id="texto-curto-{{ an.id }}">
+        {{ an.description|slice:":180" }}{% if an.description|length >= 180 %}{% endif %}
+    </span>
+
+    <span id="texto-completo-{{ an.id }}" class="d-none">
+        {{ an.description }}
+    </span>
+
+    {% if an.description|length >= 180 %}
+        <button class="btn p-0" 
+        onclick="toggleComentario({{ an.id }})" 
+        id="btn-{{ an.id }}">
+    ...
+</button>
+
+
+    {% endif %}
+
+</div>
+
+
+                <p class="card-text"><small class="text-body-secondary">Atualizado em:
+                        {{an.dt_update}}</small></p>
+                <div class="card-body">
+
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+
+<script>
+function toggleComentario(id) {
+    const curto = document.getElementById(`texto-curto-${id}`);
+    const completo = document.getElementById(`texto-completo-${id}`);
+    const btn = document.getElementById(`btn-${id}`);
+
+    if (completo.classList.contains("d-none")) {
+        curto.classList.add("d-none");
+        completo.classList.remove("d-none");
+        btn.textContent = "...";
+    } else {
+        completo.classList.add("d-none");
+        curto.classList.remove("d-none");
+        btn.textContent = "...";
+    }
+}
+</script>
+
+
+    {% endblock %}
