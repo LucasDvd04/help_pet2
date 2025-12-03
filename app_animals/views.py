@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from .animal_form import AnimalForm,GaleryForm
 from .models import Animal, Location, PictureGalery, Comment
 from django.views import generic
+from django.urls import reverse_lazy
+
 
 # Create your views here.
 
@@ -36,6 +38,10 @@ def animal_cad_screen(request):
     picture_form = GaleryForm()
     return render(request, 'animals_cad.html', {'form': form, 'pic': picture_form})
 
+class AnimalDelete(generic.DeleteView):
+    model  = Animal
+    template_name = 'animal_delete.html'
+    success_url = reverse_lazy('user_profile')
 
 class AnimaCadView(generic.CreateView):
     model = Animal
@@ -239,6 +245,7 @@ class AnimalUpdateView(generic.UpdateView):
     form_class = AnimalForm
     template_name = 'animals_update.html'
     context_object_name = 'media'
+    success_url = reverse_lazy('user_profile')
 
 
 class PictureUpdateView(generic.UpdateView):
@@ -246,3 +253,43 @@ class PictureUpdateView(generic.UpdateView):
     form_class = GaleryForm
     template_name = 'pictures_update.html'
     context_object_name = 'media'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pictures'] = PictureGalery.objects.filter(animal=self.object.id)
+        
+        return context
+    
+
+def pictureUpdate(request, pk):
+    pictures = PictureGalery.objects.filter(animal=pk)
+    print(pictures)
+
+    if request.method == 'GET':
+        print('metodo get')
+        return render(request, 'pictures_update.html' ,{'pictures': pictures})
+    elif request.method == 'POST':
+        files = request.FILES.getlist('picture')
+        print('POST')
+        print(files)
+        if files:
+            for f in files:
+                PictureGalery.objects.create(
+                    picture=f,
+                    animal= Animal.objects.get(id = pk)             
+                )
+        return render(request, 'pictures_update.html' ,{'pictures': pictures})
+    
+    return render(request, 'pictures_update.html' ,{'pictures': pictures})
+
+def deletePicture(request, pk):
+    if request.method == "GET":
+        picture = get_object_or_404(PictureGalery, id=pk)
+        id_animal = picture.animal_id
+        picture.delete()
+        # comentario = get_object_or_404(Comment, id=comment_id)
+        # animal_id = comentario.animal.id
+        # comentario.delete()
+
+    # return redirect("animal_detail", pk=animal_id)
+    return redirect("update_picture", pk=id_animal)

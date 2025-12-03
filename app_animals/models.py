@@ -69,13 +69,13 @@ class Animal(models.Model):
 class PictureGalery(models.Model):
     picture = models.ImageField(upload_to='animal_pictures/')
     dt_insert = models.DateTimeField(auto_now_add=True)
-    animal = models.ForeignKey(Animal, on_delete=models.PROTECT, related_name='picture_animal', null=True, blank=True)
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE, related_name='picture_animal', null=True, blank=True)
 
 class Comment(models.Model):
     content = models.TextField(max_length=300)
     dt_create = models.DateTimeField(auto_now_add=True)
     dt_update = models.DateTimeField(auto_now=True)
-    animal = models.ForeignKey(Animal, on_delete=models.PROTECT, related_name='comment_animal', null=True, blank=True)
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE, related_name='comment_animal', null=True, blank=True)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):

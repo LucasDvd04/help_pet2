@@ -1,0 +1,24 @@
+{% extends "base_h.html" %}
+{% load static %}
+{% block title %}Help Pet - Deletar {{ object.pk }} {% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/style_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid " style="overflow-y: auto;">
+
+    <div class="row mt-4 mb-4 ">
+         
+                        <h2>Excluir Animal: </h2>
+                        <p>Deseja realmente excluir o cadastro do <strong>{{ object.name }}</strong> </p>
+                      
+                    <form method="post" action="#">
+                    {% csrf_token %}
+                    <a href="{% url 'user_profile' %}" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+    </div>
+</div>
+{% endblock %}

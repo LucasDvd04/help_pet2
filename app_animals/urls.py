@@ -17,7 +17,9 @@ urlpatterns = [
     path('lista-abandoned/<int:pk>/detail',views.AnimalAbandonedDetailView.as_view(), name='abandoned_detail'),
     path('profile/update/',views.AnimalUpdateView.as_view(), name='update_animal'),
     path('profile/update/<int:pk>/',views.AnimalUpdateView.as_view(), name='update_animal'),
-    path('profile/pictures/<int:pk>/',views.PictureUpdateView.as_view(), name='update_picture'),
-    path('profile/pictures/<int:pk>/',views.PictureUpdateView.as_view(), name='update_picture'),
+    path('profile/pictures/',views.PictureUpdateView.as_view(), name='update_picture'),
+    path('profile/pictures/<int:pk>/',views.pictureUpdate, name='update_picture'),
+    path('profile/delete-picture/<int:pk>/',views.deletePicture, name='delete_picture'),
+    path('profile/delete-animal/<int:pk>/',views.AnimalDelete.as_view(), name='delete_animal'),
     path('teste-base/', views.teste_base, name='teste_base'),
 ]

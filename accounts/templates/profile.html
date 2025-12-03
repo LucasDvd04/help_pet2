@@ -1,28 +1,30 @@
 {% extends "base_h.html" %}
 {% load static %}
-{% block title %}Help Pet - {% endblock %}
+{% block title %}Help Pet - {{user.username}}{% endblock %}
 
 {% block content %}
-<div class="container-xxl table-overflow">
+<div class="container-xxl table-overflow" style="overflow-y: auto;">
 
     <div class="d-flex justify-content-center">
         <div class="col-md-10">
 
             <div class="row fixed-top-center">
-                <h2>{{ user.username }}</h2>
+                <div class="mb-4 mt-4">
+                   <h2>Olá, <strong>{{ user.username }} </strong> <a href="{% url 'edit_profile' user.pk %}"><i class="bi bi-pen text-dark-emphasis"></i></a></h2>
+                    
+                </div>
             </div>
 
             <div class="row justify-content-center">
 
+                {% if animal %}
                 {% for an in animal %}
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="card mb-4" style="max-width:40vh; height:50vh; border:none;">
+                <div class="col-12 col-sm-6 col-md-4 mb-2">
+                    <div class="card" style="max-width:40vh; height: 50vh; border:none;">
 
                         <!-- Cada botão abre um modal diferente -->
-                        <button type="button"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modal-{{ an.id }}"
-                                style="border:none; background-color:transparent;">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-{{ an.id }}"
+                            style="border:none; background-color:transparent; max-height: 50vh;">
 
                             {% if an.first_picture %}
                             <img src="{{ an.first_picture }}" class="img-fluid rounded-start"
@@ -57,7 +59,7 @@
                                     Editar Fotos
                                 </a>
 
-                                <a href="{% url 'update_animal' an.id %}" class="btn btn-danger w-100">
+                                <a href="{% url 'delete_animal' an.id %}" class="btn btn-danger w-100">
                                     Deletar
                                 </a>
                             </div>
@@ -71,7 +73,9 @@
                 </div>
 
                 {% endfor %}
-
+                {% else %}
+                <p class="text-dark-emphasis">Você ainda não cadastrou nenhum pet <a href="{% url 'animal_cad' %}" class="btn btn-primary">cadastrar</a></p>
+                {% endif %}
             </div>
 
         </div>

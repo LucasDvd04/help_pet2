@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.views import generic
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from app_animals.models import Animal
@@ -32,8 +32,10 @@ def UserLoginView(request):
     
 
 class UserUpdateView(generic.UpdateView):
-
-    ...
+    model = User
+    form_class = UserChangeForm
+    template_name = 'user_edit.html'
+    
 class UserDetailView(generic.DetailView):
 
     ...

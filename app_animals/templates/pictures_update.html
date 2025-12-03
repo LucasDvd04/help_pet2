@@ -1,33 +1,82 @@
 {% extends "base_h.html" %}
 {% load static %}
-{% block title %}Help Pet - Cadastro de Pet {% endblock %}
+{% block title %}Help Pet - Editar Fotos {% endblock %}
 
 {% block extrahead %}
 <link rel="stylesheet" href="{% static 'css/style_form.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="cad-screen table-overflow" style="overflow-y: auto;">
-    <div class="cover-cad">
-        <!-- <h1>Cadastre o pet: um passo para um novo lar.</h1> -->
+<div class="container-fluid " style="overflow-y: auto;">
+
+    <div class="row mt-4 mb-4 ">
+
+        <div class="col-md-12">
+            <div class="card-body">
+                <div class="row">
+                    {% if pictures %}
+                        {% for obj in pictures %}
+                                <div class="col col-md-2" >
+                            <form action="{% url 'delete_picture' obj.pk %}" method="GET">
+                                {% csrf_token %}
+                                <div class="card" style="min-height: 30vh;">
+                                    <img src="{{obj.picture.url}}" alt="" style="object-fit: cover;">
+                                <div class="card-body">
+                                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                        {% endfor %}
+                    {% else %} 
+                            <span>Ainda sem Fotos</span>
+                        {% endif %}
+                    <div class="col">
+
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#insertPic"><i class="bi bi-plus"></i></button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
 
-    <form method="post" enctype="multipart/form-data" class="form-cad ">
-        {% csrf_token %}
-        <table class="form-class">
-            <h2 class="form-title">Alterar Cadastro</h2>
-                {{ form.as_table }}
-
-        </table>
-
-        <div class="buttons">
-            <button type="submit" class="button b_green">Cadastrar Pet</button>
-            <!-- <button type="cancel" class="button b_red" action="{% url 'home' %}">Cancelar</button> -->
-
-            <a href="{% url 'home' %}" class="btn btn-danger">Cancelar</a>
-        </div>
-    </form>
+<div class="row mt-4 ">
+                <div class="col ms-4">
+                    <a href="{% url 'user_profile' %}" class="btn btn-secondary">Cancelar</a>
+                </div>
 
 </div>
 
+</div>
+<!-- Modal -->
+<div class="modal fade" id="insertPic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+         <form method="post" enctype="multipart/form-data" class="form-cad ">
+        {% csrf_token %}
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Inserir Fotos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               
+        <table class="form-class">
+            <input type="file" name="picture" class="btn" accept="image/png, image/jpeg" multiple/>
+
+        </table>
+    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

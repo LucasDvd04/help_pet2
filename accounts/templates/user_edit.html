@@ -10,37 +10,51 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title p-5 text-center"><i class="bi bi-person-circle"></i> Cadastre-se </h2>
+                <h2 class="text-danger">Pagina em manutenção</h2>
+                <h5>Tente novamente mais tarde</h5>
+                <a href="{% url 'user_profile' %}" class="btn btn-primary">Voltar</a>
+
+                <!-- <h2 class="card-title p-5 text-center"><i class="bi bi-person-circle"></i> Cadastre-se </h2>
                 <form class="form-group" method="post">
                     {% csrf_token %}
                     <div class="col mb-3">
                         <label class="form-label" for="username">Usuário: </label>
                         <input type="text" class="form-control" name="username" id="id_username"
-                            placeholder="Nome de Usuário"></input>
+                            value="{{form.username.value}}"></input>
                         {{ form.username.errors}}
                     </div>
-                
+
+                    <div class="col mb-3">
+                        <label class="form-label" for="username">Senha Atual: </label>
+                        <input type="password" class="form-control" name="password" id="id_password"
+                            placeholder="************"></input>
+                        {{form.password.erros}}
+
+                    </div>
+
                     <div class="col mb-3">
 
-                        <label class="form-label" for="username">Senha: </label>
+                        <label class="form-label" for="username">Nova Senha: </label>
                         <input type="password" class="form-control" name="password1" id="id_password1"
                             placeholder="************"></input>
                         {{ form.password1.errors}}
                     </div>
+
                     <div class="col mb-3">
 
-                        <label class="form-label" for="username">Confirmação de Senha: </label>
+                        <label class="form-label" for="username">Confirmação de Nova Senha: </label>
                         <input type="password" class="form-control" name="password2" id="id_password2"
                             placeholder="************"></input>
                         {{ form.password2.errors}}
                     </div>
+
                     <div class="row p-4">
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </div>
                 </form>
                 <div class="text-center">
                     <small class="text-body-secondary">Já tem conta? <a href="{% url 'user_log' %}">Entre</a></small>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
